@@ -11,8 +11,13 @@ namespace WebTest.Controllers
         //
         // GET: /Dynamic/
 
-        public ActionResult Index(int? id)
+        public ActionResult Index(DateTime? date)
         {
+            if (!date.HasValue)
+            {
+                var today = DateTime.Now;
+                return RedirectToAction("Index", new {date = today.ToString("yyyy-MM-dd")});
+            }
             return View();
         }
 

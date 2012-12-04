@@ -1,3 +1,5 @@
+using WebTest.Core.Models;
+
 namespace WebTest.Migrations
 {
     using System;
@@ -26,6 +28,74 @@ namespace WebTest.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.Bookings.AddOrUpdate(
+                p => new {p.BookingId, p.PersonId, p.ResourceId, p.Start, p.Stop},
+                new Booking
+                    {
+                        BookingId = 4,
+                        PersonId = 1,
+                        ResourceId = 1,
+                        Start = DateTime.Parse("2012-01-01"),
+                        Stop = DateTime.Parse("2012-02-02")
+                    },
+                new Booking
+                    {
+                        PersonId = 1,
+                        ResourceId = 2,
+                        Start = DateTime.Parse("2012-01-01"),
+                        Stop = DateTime.Parse("2012-02-02")
+                    },
+                new Booking
+                    {
+                        PersonId = 1,
+                        ResourceId = 3,
+                        Start = DateTime.Parse("2012-01-01"),
+                        Stop = DateTime.Parse("2012-02-02")
+                    },
+                new Booking
+                    {
+                        PersonId = 1,
+                        ResourceId = 1,
+                        Start = DateTime.Parse("2012-01-01"),
+                        Stop = DateTime.Parse("2012-02-02")
+                    },
+                new Booking
+                    {
+                        PersonId = 1,
+                        ResourceId = 2,
+                        Start = DateTime.Parse("2012-01-01"),
+                        Stop = DateTime.Parse("2012-02-02")
+                    },
+                new Booking
+                    {
+                        PersonId = 1,
+                        ResourceId = 3,
+                        Start = DateTime.Parse("2012-01-01"),
+                        Stop = DateTime.Parse("2012-02-02")
+                    },
+                new Booking
+                    {
+                        PersonId = 1,
+                        ResourceId = 1,
+                        Start = DateTime.Parse("2012-01-01"),
+                        Stop = DateTime.Parse("2012-02-02")
+                    },
+                new Booking
+                    {
+                        PersonId = 1,
+                        ResourceId = 2,
+                        Start = DateTime.Parse("2012-01-01"),
+                        Stop = DateTime.Parse("2012-02-02")
+                    },
+                new Booking
+                    {
+                        PersonId = 1,
+                        ResourceId = 3,
+                        Start = DateTime.Parse("2012-01-01"),
+                        Stop = DateTime.Parse("2012-02-02")
+                    }
+                );
         }
     }
 }
