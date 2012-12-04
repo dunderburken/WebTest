@@ -168,11 +168,17 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DynamicController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Core\Data\BookingContext.cs" />
     <Compile Include="Core\Models\Booking.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201212041003271_Start.cs" />
+    <Compile Include="Migrations\201212041003271_Start.Designer.cs">
+      <DependentUpon>201212041003271_Start.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -291,10 +297,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Core\Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201212041003271_Start.resx">
+      <DependentUpon>201212041003271_Start.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
