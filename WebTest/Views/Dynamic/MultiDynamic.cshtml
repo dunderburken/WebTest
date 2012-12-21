@@ -1,10 +1,12 @@
-﻿@{
+﻿@model WebTest.Models.ContactsModel[]
+@{
     ViewBag.Title = "MuliDynamic";
 }
 
 <style type="text/css">
     td {
         text-wrap: none;
+        vertical-align: top;
     }
     .liveExample input {
         width: 25px;
@@ -77,27 +79,27 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/knockoutjs")
 
-    @*    <script type="text/javascript">
+        <script type="text/javascript">
         var initialData = @Html.Raw(Json.Encode(Model));
-    </script>*@
+    </script>
     
     <script type="text/javascript">
-        var initialData = [
-            {
-                firstName: "Danny",
-                lastName: "LaRusso",
-                phones: [
-                    { type: "Mobile", number: "(555) 121-2121" },
-                    { type: "Home", number: "(555) 123-4567" }]
-            },
-            {
-                firstName: "Sensei",
-                lastName: "Miyagi",
-                phones: [
-                    { type: "Mobile", number: "(555) 444-2222" },
-                    { type: "Home", number: "(555) 999-1212" }]
-            }
-        ];
+        //var initialData = [
+        //    {
+        //        firstName: "Danny",
+        //        lastName: "LaRusso",
+        //        phones: [
+        //            { type: "Mobile", number: "(555) 121-2121" },
+        //            { type: "Home", number: "(555) 123-4567" }]
+        //    },
+        //    {
+        //        firstName: "Sensei",
+        //        lastName: "Miyagi",
+        //        phones: [
+        //            { type: "Mobile", number: "(555) 444-2222" },
+        //            { type: "Home", number: "(555) 999-1212" }]
+        //    }
+        //];
 
         var ContactsModel = function(contacts) {
             var self = this;

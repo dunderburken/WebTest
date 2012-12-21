@@ -46,12 +46,26 @@ namespace WebTest.Controllers
                 return RedirectToAction("MultiDynamic", new { date = today.ToString("yyyy-MM-dd") });
             }
 
-            var initialState = new[]
-                {
-                    new GiftModel {Name = "Bogdan Erlang", Price = 49.95},
-                    new GiftModel {Name = "Kjell Eriksson", Price = 78.25}
-                };
-            return View(initialState);
+            var initialState = new List<ContactsModel>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                initialState.Add(
+                    new ContactsModel
+                        {
+                            firstName = "Bogdan",
+                            lastName = "Erlang",
+                            phones = new List<Phone>
+                                {
+                                    new Phone {number = "1234", type = "Mobil"},
+                                    new Phone {number = "1234", type = "Mobil"},
+                                    new Phone {number = "1234", type = "Mobil"}
+                                }
+                        }
+                    );
+            }
+
+            return View(initialState.ToArray());
         }
 
         [HttpPost]
