@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "MuliDynamic";
+}
+
+<style type="text/css">
+    td {
+        text-wrap: none;
+    }
+    .liveExample input {
+        width: 25px;
+    }
+</style>
+
+<h2>Multi Dynamic</h2>
+
+<div class='liveExample'> 
+    
+    <h2>Contacts</h2>
+    <div id='contactsList'>
+        <table class='contactsEditor'>
+            <tr>
+                <th>A</th>
+                <th>G</th>
+            </tr>
+            <tbody data-bind="foreach: contacts">
+                <tr style="border-bottom: solid 1px black">
+                    <td data-bind="text: firstName">
+                        @*<input data-bind='value: firstName' />
+                        <div><a href='#' data-bind='click: $root.removeContact'>Delete</a></div>*@
+                    </td>
+                    @*<td><input data-bind='value: lastName' /></td>*@
+                    <td>
+                        <table>
+                            <tr>
+                                <th>1</th>
+                                <th>2</th>
+                                <th>3</th>
+                                <th>4</th>
+                                <th>5</th>
+                                <th>6</th>
+                                <th>7</th>
+                                <th></th>
+                            </tr>
+                            <tbody data-bind="foreach: phones">
+                                <tr>
+                                    <td><input data-bind='value: type' /></td>
+                                    <td><input data-bind='value: number' /></td>
+                                    <td><input data-bind='value: type' /></td>
+                                    <td><input data-bind='value: number' /></td>
+                                    <td><input data-bind='value: type' /></td>
+                                    <td><input data-bind='value: type' /></td>
+                                    <td><input data-bind='value: type' /></td>
+                                    <td><a href='#' data-bind='click: $root.removePhone'>Delete</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a href='#' data-bind='click: $root.addPhone'>Add number</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+     
+    <p>
+        <button data-bind='click: addContact'>Add a contact</button>
+        <button data-bind='click: save, enable: contacts().length > 0'>Save to JSON</button>
+    </p>
+     
+    <textarea data-bind='value: lastSavedJson' rows='5' cols='60' disabled='disabled'> </textarea>
+    
+</div>​
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/knockoutjs")
+
+    @*    <script type="text/javascript">
+        var initialData = @Html.Raw(Json.Encode(Model));
+    </script>*@
+    
+    <script type="text/javascript">
+        var initialData = [
+            {
+                firstName: "Danny",
+                lastName: "LaRusso",
+                phones: [
+                    { type: "Mobile", number: "(555) 121-2121" },
+                    { type: "Home", number: "(555) 123-4567" }]
+            },
+            {
+                firstName: "Sensei",
+                lastName: "Miyagi",
+                phones: [
+                    { type: "Mobile", number: "(555) 444-2222" },
+                    { type: "Home", number: "(555) 999-1212" }]
+            }
+        ];
+
+        var ContactsModel = function(contacts) {
+            var self = this;
+            self.contacts = ko.observableArray(ko.utils.arrayMap(contacts, function(contact) {
+                return { firstName: contact.firstName, lastName: contact.lastName, phones: ko.observableArray(contact.phones) };
+            }));
+
+            self.addContact = function() {
+                self.contacts.push({
+                    firstName: "",
+                    lastName: "",
+                    phones: ko.observableArray()
+                });
+            };
+
+            self.removeContact = function(contact) {
+                var remove = confirm("Ta bort rad?");
+                if (remove) {
+                    self.contacts.remove(contact);
+                }
+            };
+
+            self.addPhone = function(contact) {
+                contact.phones.push({
+                    type: "",
+                    number: ""
+                });
+            };
+
+            self.removePhone = function(phone) {
+                var remove = confirm("Ta bort rad?");
+                if (remove) {
+                    $.each(self.contacts(), function() { this.phones.remove(phone) })
+                }
+            };
+
+            self.save = function() {
+                self.lastSavedJson(JSON.stringify(ko.toJS(self.contacts), null, 2));
+            };
+
+            self.lastSavedJson = ko.observable("");
+        };
+
+        var daModal = new ContactsModel(initialData);
+        ko.applyBindings(daModal);
+
+    </script>
+}

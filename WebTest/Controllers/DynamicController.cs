@@ -18,7 +18,7 @@ namespace WebTest.Controllers
             if (!date.HasValue)
             {
                 var today = DateTime.Now;
-                return RedirectToAction("Index", new {date = today.ToString("yyyy-MM-dd")});
+                return RedirectToAction("MultiDynamic", new {date = today.ToString("yyyy-MM-dd")});
             }
 
             var initialState = new[]
@@ -37,5 +37,31 @@ namespace WebTest.Controllers
             //return View("Saved", gifts);
             return View(gifts.ToArray());
         }
+
+        public ActionResult MultiDynamic(DateTime? date)
+        {
+            if (!date.HasValue)
+            {
+                var today = DateTime.Now;
+                return RedirectToAction("MultiDynamic", new { date = today.ToString("yyyy-MM-dd") });
+            }
+
+            var initialState = new[]
+                {
+                    new GiftModel {Name = "Bogdan Erlang", Price = 49.95},
+                    new GiftModel {Name = "Kjell Eriksson", Price = 78.25}
+                };
+            return View(initialState);
+        }
+
+        [HttpPost]
+        public ActionResult MultiDynamic([FromJson] IEnumerable<ContactsModel> contacts)
+        {
+            // Can process the data any way we want here,
+            // e.g., further server-side validation, save to database, etc
+            //return View("Saved", gifts);
+            return View(contacts.ToArray());
+        }
+
     }
 }
